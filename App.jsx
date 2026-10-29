@@ -1,52 +1,38 @@
 
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import ProductList from "./ProductList";
+import ProductList, { Navbar } from "./ProductList";
 import CartItem from "./CartItem";
 import AboutUs from "./AboutUs";
 import "./App.css";
 
 function App() {
   const [page, setPage] = useState("home");
-  const cartItems = useSelector((state) => state.cart.items);
+  const [showProductList, setShowProductList] = useState(false);
 
-  const totalItems = cartItems.reduce(
-    (total, item) => total + item.quantity,
-    0
-  );
+  const handleGetStarted = () => {
+    setShowProductList(true);
+    setPage("products");
+  };
 
   return (
     <div className="app">
-      <nav className="navbar">
-        <div className="brand" onClick={() => setPage("home")}>
-          🌿 Paradise Nursery
-        </div>
-
-        <div className="nav-links">
-          <button onClick={() => setPage("home")}>Home</button>
-          <button onClick={() => setPage("products")}>Plants</button>
-          <button onClick={() => setPage("about")}>About Us</button>
-          <button
-            className="cart-link"
-            onClick={() => setPage("cart")}
-          >
-            🛒 Cart ({totalItems})
-          </button>
-        </div>
-      </nav>
+      <Navbar
+        setPage={setPage}
+        setShowProductList={setShowProductList}
+      />
 
       {page === "home" && (
-        <main className="hero">
+        <main className="background-image">
           <div className="hero-content">
-            <h1>Paradise Nursery</h1>
+            <h1>Welcome to Paradise Nursery</h1>
             <h2>Bring Nature Home</h2>
             <p>
               Discover beautiful indoor plants that bring freshness,
               peace, and natural beauty into your living space.
             </p>
             <button
-              className="primary-button"
-              onClick={() => setPage("products")}
+              className="get-started-button"
+              onClick={handleGetStarted}
             >
               Get Started
             </button>
@@ -54,17 +40,18 @@ function App() {
         </main>
       )}
 
-      {page === "products" && (
+      {page === "products" && showProductList && (
         <ProductList />
       )}
 
-      {page === "about" && (
-        <AboutUs />
-      )}
+      {page === "about" && <AboutUs />}
 
       {page === "cart" && (
         <CartItem
-          onContinueShopping={() => setPage("products")}
+          onContinueShopping={() => {
+            setShowProductList(true);
+            setPage("products");
+          }}
         />
       )}
 
