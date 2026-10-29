@@ -3,7 +3,7 @@ import React from "react";
 
 function AboutUs() {
   return (
-    <section className="about-section">
+    <div className="about-us-container">
       <h1>About Paradise Nursery</h1>
 
       <p>
@@ -23,10 +23,10 @@ function AboutUs() {
       <ul>
         <li>A wide variety of indoor plants.</li>
         <li>Affordable prices for every plant lover.</li>
-        <li>Simple guidance for caring for your plants.</li>
-        <li>A convenient and enjoyable shopping experience.</li>
+        <li>Helpful plant-care information.</li>
+        <li>A convenient shopping experience.</li>
       </ul>
-    </section>
+    </div>
   );
 }
 
